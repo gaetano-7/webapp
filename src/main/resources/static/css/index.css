@@ -1,0 +1,82 @@
+header {
+    text-align: center;
+}
+
+#home, #reg{
+    color:yellow;
+}
+
+footer{
+    text-align: right;
+}
+
+/*
+img{
+#logo{
+.round{
+header>img{
+#unDiv>img{
+*/
+
+header>div>img{
+    border-style: solid;
+    border-radius: 50%;
+    border-color: black;
+}
+
+body{
+    background-color: lightgrey;
+}
+
+h1, h2{
+    text-shadow: 1.5px 1.5px white;
+}
+
+nav li{
+    display: inline;
+    padding: 20px;
+}
+
+article{
+    width: 50%;
+    float: left;
+    overflow: hidden;
+}
+
+nav li>a:link, nav li>a:visited{
+    color: white;
+    text-decoration: none;
+}
+
+nav li:hover{
+    background-color: darkred;
+    border-radius: 50%;
+}
+
+footer{
+    clear: left;
+}
+
+.row{
+    background-color: black;
+    margin-top: 10px; !important;
+}
+
+@media screen and (max-width: 800px) {
+    article{
+        background-color: blue;
+    }
+    nav li{
+        display: block;
+    }
+    article{
+        width: 100%;
+        float: none;
+    }
+}
+
+#img1, #img2, #img3, #img4{
+    float: left;
+    border-style: solid;
+    border-color: black;
+}
