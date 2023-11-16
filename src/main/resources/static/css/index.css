@@ -25,7 +25,7 @@ header>div>img{
 }
 
 body{
-    background-color: lightgrey;
+    background-color: grey;
 }
 
 h1, h2{
@@ -50,16 +50,22 @@ nav li>a:link, nav li>a:visited{
 
 nav li:hover{
     background-color: darkred;
-    border-radius: 50%;
+    border-radius: 5%;
 }
 
 footer{
     clear: left;
 }
 
+article>figure>img{
+    border-style: solid;
+    border-color: white;
+}
+
 .row{
-    background-color: black;
+    background-color: grey;
     margin-top: 10px; !important;
+    padding-left: 100px;
 }
 
 @media screen and (max-width: 800px) {
@@ -73,10 +79,4 @@ footer{
         width: 100%;
         float: none;
     }
-}
-
-#img1, #img2, #img3, #img4{
-    float: left;
-    border-style: solid;
-    border-color: black;
 }

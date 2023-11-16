@@ -1,3 +1,61 @@
+ristorantiDaCancellare = new Array();
+ristorantiDaAggiungere = new Array();
+
+/*
+<ristorante>
+    <nome>
+        Gironi ristopasti
+    </nome>
+    <descrizione>
+        Pizze
+    </descrizione>
+    <ubicazione>
+        Cosenza
+    </ubicazione>
+</ristorante>
+ */
+/*
+    [
+    {
+        "nome": "Gironi ristopasti",
+        "descrizione": "Pizze",
+        "ubicazione": "Cosenza"
+    },
+    {
+        "nome": "Gironi ristopasti secondi",
+        "descrizione": "Pizze Gourmet",
+        "ubicazione": "Rende"
+    }
+    ]
+ */
+
+class Ristorante{
+    constructor(nome, descrizione, ubicazione) {
+        this.nome = nome;
+        this.descrizione = descrizione;
+        this.ubicazione = ubicazione;
+    }
+    getNome(){
+        return this.nome;
+    }
+}
+window.addEventListener("load", function() {
+    var butRimuovi = document.querySelector("#btn_cancella");
+    butRimuovi.addEventListener("click", function () {
+        rimuoviRistorante();
+    });
+
+    var butVerifica = document.querySelector("#btn_verifica");
+    butVerifica.addEventListener("click", function () {
+        verificaRistorante();
+    });
+
+    var butAggiungi = document.querySelector("#btn_aggiungi");
+    butAggiungi.addEventListener("click", function () {
+        aggiungiRistorante();
+    });
+});
+
 function verificaRistorante(){
     var nomeRistTxt = document.getElementById("nome_rist");
     var descRistTxt = document.getElementById("desc_rist");
@@ -27,7 +85,7 @@ function aggiungiRistorante(){
     if (validateRistorante(nomeRist, descRist, ubRist)){
         let newTr = document.createElement("tr");
 
-        let newTdChk = document.createElement("td")
+        let newTdChk = document.createElement("td");
         let newTdId = document.createElement("td");
         let newTdNome = document.createElement("td");
         let newTdDescrizione = document.createElement("td");
@@ -36,6 +94,9 @@ function aggiungiRistorante(){
         let contentNome = document.createTextNode(nomeRist);
         let contentDescrizione = document.createTextNode(descRist);
         let contentUbicazione = document.createTextNode(ubRist);
+
+        nuovoRistorante = new Ristorante(contentNome, contentDescrizione, contentUbicazione);
+        ristorantiDaAggiungere.push(nuovoRistorante);
 
         newTr.appendChild(newTdChk);
         newTr.appendChild(newTdId);
@@ -49,7 +110,7 @@ function aggiungiRistorante(){
 
         newTr.style = "font-weight: bold";
 
-        let tableElement = document.getElementsByTagName("table")[0];
+        let tableElement = document.getElementsByTagName("tbody")[0];
         tableElement.appendChild(newTr);
     }else{
         alert("Mancano dei campi");
@@ -58,10 +119,25 @@ function aggiungiRistorante(){
 
 function rimuoviRistorante(){
     var ristorantiSelezionati = document.querySelectorAll(".ristoranteSelezionato:checked");
-    ristorantiSelezionati.forEach(function(elementSelected){
+    ristorantiSelezionati.forEach(function (elementSelected){
+        // for each elementSelected in ristorantiSelezionati:
         var valueSel = elementSelected.getAttribute("value");
-        alert(valueSel);
-    })
+
+        var riga = document.querySelector("tr#r" + valueSel);
+        riga.style = "text-decoration: line-through";
+
+        ristorantiDaCancellare.push(valueSel);
+    });
+}
+
+function salva() {
+    var ristJson = JSON.stringify(ristorantiDaAggiungere);
+    $.ajax({
+        url: "addRistorante",
+        type: "POST",
+        data: ristJson,
+        contentType: "application/json"
+    });
 }
 
 function validateRistorante(nome, descrizione, ubicazione){
